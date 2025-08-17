@@ -137,7 +137,6 @@ vim.keymap.set('c', '<S-Tab>', function()
 	return '<S-Tab>'
 end, { expr = true, remap = true})
 
-
 -- scratch buffer
 vim.api.nvim_create_user_command('SC',
 	function(opts)
@@ -154,14 +153,12 @@ vim.api.nvim_create_user_command('SC',
 	}
 )
 
-
 -- sudo write
 if vim.fn.executable('sudo') then
 	vim.api.nvim_create_user_command('W', 'silent! write !sudo tee % >/dev/null', {
 		force = true,
 	})
 end
-
 
 -- portable git blame
 vim.api.nvim_create_user_command('GB',
@@ -264,7 +261,7 @@ require("lazy").setup({
 
 			-- nil for Nix
 			if vim.fn.executable('nil') == 1 then
-				vim.lsp.enable('nil')
+				vim.lsp.enable('nil_ls')
 			end
 
 			-- Global mappings.
