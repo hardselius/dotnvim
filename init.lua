@@ -107,6 +107,25 @@ vim.keymap.set('n', '<C-w>z', ':wincmd z<Bar>cclose<Bar>lclose<CR>', { remap = t
 -- background
 vim.keymap.set('n', '[b', ':<C-U>set background=<C-R>=&background == "dark" ? "light" : "dark"<CR><CR>', { remap = true })
 
+-- grepping
+-- TODO: port this to lua
+vim.cmd [[
+	function! Grep(...)
+		return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
+	endfunction
+
+	command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
+	command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
+
+	cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
+	cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
+
+	augroup quickfix
+		autocmd!
+		autocmd QuickFixCmdPost cgetexpr cwindow
+		autocmd QuickFixCmdPost lgetexpr lwindow
+	augroup END
+]]
 
 -- searching
 vim.keymap.set('c', '<Tab>', function()
