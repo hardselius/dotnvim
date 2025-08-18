@@ -1,9 +1,11 @@
 -- backup, undo and swap
 vim.opt.backup = true
-vim.opt.backupdir = { '$XDG_STATE_HOME/nvim/backup//', '.' }
 vim.opt.undofile = true
 vim.opt.swapfile = true
 
+-- make sure '.' is tried last
+vim.opt.backupdir:remove({ '.' })
+vim.opt.backupdir:append({ '.' })
 
 -- various settings I like
 vim.opt.clipboard:prepend({ 'unnamed' })
