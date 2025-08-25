@@ -31,18 +31,22 @@ if vim.fn.executable('rg') then
 	vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
 end
 
-
 -- autocommands
 local vimrc_group = vim.api.nvim_create_augroup('vimrc', { clear = true })
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   pattern = '[^l]*',
   group = vimrc_group,
-  command = 'cwindow',
+  command = 'botright cwindow',
 })
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   pattern = 'l*',
   group = vimrc_group,
-  command = 'lwindow',
+  command = 'botright lwindow',
+})
+vim.api.nvim_create_autocmd('VimEnter', {
+  pattern = '*',
+  group = vimrc_group,
+  command = 'botright cwindow',
 })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'gitcommit',
@@ -121,12 +125,6 @@ vim.cmd [[
 
 	cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
 	cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
-
-	augroup quickfix
-		autocmd!
-		autocmd QuickFixCmdPost cgetexpr cwindow
-		autocmd QuickFixCmdPost lgetexpr lwindow
-	augroup END
 ]]
 
 -- searching
