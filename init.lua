@@ -63,6 +63,15 @@ vim.api.nvim_create_autocmd('CompleteDone', {
   command = 'silent! pclose',
 })
 
+-- Run checktime when resuming after a suspend. Usefult after switching between
+-- git branches or running other external commands that modify files, such as
+-- formatters.
+vim.api.nvim_create_autocmd('VimResume', {
+  pattern = '*',
+  group = vimrc_group,
+  command = 'checktime',
+})
+
 -- only highlight matches while searching
 vim.api.nvim_create_autocmd('CmdlineEnter', {
   pattern = '/,?',
