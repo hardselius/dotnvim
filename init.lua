@@ -1,3 +1,7 @@
+--
+-- Options
+--
+
 -- backup, undo and swap
 vim.opt.backup = true
 vim.opt.undofile = true
@@ -25,14 +29,19 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
 vim.o.softtabstop = vim.o.tabstop
 
--- nicer grepping
+-- Nicer grepping when `rg` is available.
 if vim.fn.executable('rg') then
 	vim.opt.grepprg = 'rg --vimgrep --no-heading'
 	vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
 end
 
--- autocommands
+--
+-- Autocommands
+--
+
 local vimrc_group = vim.api.nvim_create_augroup('vimrc', { clear = true })
+
+-- Launch the quickfix window after a quickfix command is run.
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   pattern = '[^l]*',
   group = vimrc_group,
@@ -43,11 +52,14 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   group = vimrc_group,
   command = 'botright lwindow',
 })
+
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = '*',
   group = vimrc_group,
   command = 'botright cwindow',
 })
+
+-- Add some nice navigation when editing git commit messages.
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'gitcommit',
   group = vimrc_group,
@@ -57,6 +69,8 @@ vim.api.nvim_create_autocmd('FileType', {
 	  vim.opt_local.iskeyword:append({ '-' })
   end,
 })
+
+-- Close the preview window after a completion is selected.
 vim.api.nvim_create_autocmd('CompleteDone', {
   pattern = '*',
   group = vimrc_group,
@@ -72,7 +86,7 @@ vim.api.nvim_create_autocmd('VimResume', {
   command = 'checktime',
 })
 
--- only highlight matches while searching
+-- Make search less annoying by only highlighting matches while searching.
 vim.api.nvim_create_autocmd('CmdlineEnter', {
   pattern = '/,?',
   group = vimrc_group,
@@ -88,6 +102,9 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
   end
 })
 
+--
+-- Key mappings
+--
 
 -- fix nvim's horrible descision
 vim.keymap.set('n', 'Y', 'yy', { remap = true })
@@ -190,8 +207,11 @@ vim.api.nvim_create_user_command('GB',
 -- crate directories
 vim.keymap.set('n', '<leader>m', ':!mkdir -p %:h<CR>', { remap = true })
 
+--
+-- Plugins
+--
 
--- plugin manager
+-- Configure plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
