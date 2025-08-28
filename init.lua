@@ -200,16 +200,42 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup({
 	-- treesitter
-	{"nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate"},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		branch = 'master',
+		lazy = false,
+		build = ":TSUpdate",
+		config = function()
+			require("nvim-treesitter.configs").setup {
+				sync_install = false,
+				auto_install = true,
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = false,
+				},
+			}
+		end
+	},
 	-- colorscheme
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"EdenEast/nightfox.nvim",
 		lazy = false,
 		priority = 1000,
-		config = function()
-			vim.cmd("colorscheme rose-pine")
-		end
+		init = function()
+			vim.api.nvim_create_autocmd("OptionSet", {
+				pattern = "background",
+				callback = function()
+					if vim.o.background == "light" and vim.g.fox_theme ~= "dawnfox" then
+						vim.g.fox_theme = "dawnfox"
+						vim.cmd.colorscheme("dawnfox")
+					end
+					if vim.o.background == "dark" and vim.g.fox_theme ~= "nightfox" then
+						vim.g.fox_theme = "nightfox"
+						vim.cmd.colorscheme("nightfox")
+					end
+				end,
+			})
+		end,
 	},
 	-- LSP
 	{
