@@ -247,24 +247,12 @@ require("lazy").setup({
 	},
 	-- colorscheme
 	{
-		"EdenEast/nightfox.nvim",
+		"p00f/alabaster.nvim",
 		lazy = false,
 		priority = 1000,
-		init = function()
-			vim.api.nvim_create_autocmd("OptionSet", {
-				pattern = "background",
-				callback = function()
-					if vim.o.background == "light" and vim.g.fox_theme ~= "dawnfox" then
-						vim.g.fox_theme = "dawnfox"
-						vim.cmd.colorscheme("dawnfox")
-					end
-					if vim.o.background == "dark" and vim.g.fox_theme ~= "nightfox" then
-						vim.g.fox_theme = "nightfox"
-						vim.cmd.colorscheme("nightfox")
-					end
-				end,
-			})
-		end,
+		config = function()
+		    vim.cmd.colorscheme('alabaster')
+		end
 	},
 	-- LSP
 	{

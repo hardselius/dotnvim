@@ -1,4 +1,5 @@
 {
+  "alabaster.nvim": { "branch": "main", "commit": "7c2f32bfb233365a320446553ae6cfc0674d02d9" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "llama.vim": { "branch": "master", "commit": "1b4a03fbf0d1c7aeaa10c390065751a9503de436" },
   "nightfox.nvim": { "branch": "main", "commit": "ba47d4b4c5ec308718641ba7402c143836f35aa9" },
