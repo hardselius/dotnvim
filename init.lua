@@ -361,5 +361,5 @@ require("lazy").setup({
 	},
 	{ 'ggml-org/llama.vim' },
 	{ 'godlygeek/tabular'},
-	{ 'tpope/vim-surround' },
+	{ 'kylechui/nvim-surround' },
 })
