@@ -361,5 +361,11 @@ require("lazy").setup({
 	},
 	{ 'ggml-org/llama.vim' },
 	{ 'godlygeek/tabular'},
-	{ 'kylechui/nvim-surround' },
+	{ 
+		'kylechui/nvim-surround',
+		event = 'VeryLazy',
+		config = function()
+			require("nvim-surround").setup({})
+		end
+	},
 })
