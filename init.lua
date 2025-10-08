@@ -240,6 +240,7 @@ require("lazy").setup({
 				auto_install = true,
 				highlight = {
 					enable = true,
+					disable = {"zig"},
 					additional_vim_regex_highlighting = false,
 				},
 			}
@@ -307,6 +308,11 @@ require("lazy").setup({
 			-- nil for Nix
 			if vim.fn.executable('nil') == 1 then
 				vim.lsp.enable('nil_ls')
+			end
+
+			-- zls for Zig
+			if vim.fn.executable('zls') == 1 then
+				vim.lsp.enable('zls')
 			end
 
 			-- Global mappings.
