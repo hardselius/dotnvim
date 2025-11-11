@@ -385,4 +385,9 @@ require("lazy").setup({
 			require("nvim-surround").setup({})
 		end
 	},
+	{
+		'github/copilot.vim',
+		config = function()
+		end
+	},
 })
