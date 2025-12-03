@@ -240,7 +240,6 @@ require("lazy").setup({
 				auto_install = true,
 				highlight = {
 					enable = true,
-					disable = {"zig"},
 					additional_vim_regex_highlighting = false,
 				},
 			}
